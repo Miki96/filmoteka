@@ -1,2 +1,4 @@
-# filmoteka
-by me
+# Filmoteka
+School project
+## Authors
+Miki & Taky
