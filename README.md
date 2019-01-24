@@ -1,4 +1,4 @@
 # Filmoteka
 School project
 ## Authors
-Miki & Taky
+Miki & Taki
