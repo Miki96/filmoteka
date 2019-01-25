@@ -142,13 +142,22 @@ app.get('/movie/:id', function (req, res) {
 	});
 });
 
+
+// get movie with some parameters, prenecemo kasnije parametre
+app.get('/movieSearch', function (req, res) {
+	db.collection('movies').find({IMDBocena: {$gt: 0}}).toArray(function (err, result) {
+		res.status(200).send(result);
+	});
+});
+
+
 //post movie
 app.post('/movie', function (req, res) {
 	db.collection('movies').insertOne({
 		naziv: req.body.naziv,
 		trajanje: req.body.trajanje,
 		reziser: req.body.reziser,
-		IMDBocena: req.body.IMDBocena
+		IMDBocena: parseInt(req.body.IMDBocena)
 	}, function (err, result) {
 		if (err) {
 			res.status(400).send(err);
@@ -157,6 +166,7 @@ app.post('/movie', function (req, res) {
 		res.status(201).send('ok');
 	});
 });
+
 
 
 
