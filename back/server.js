@@ -126,6 +126,8 @@ app.put('/user/:id', function (req, res) {
 
 
 
+
+
 // get movie
 app.get('/movie/:id', function (req, res) {
 	let ids = req.params.id;
@@ -155,9 +157,12 @@ app.get('/movieSearch', function (req, res) {
 app.post('/movie', function (req, res) {
 	db.collection('movies').insertOne({
 		naziv: req.body.naziv,
-		trajanje: req.body.trajanje,
+		trajanje: parseInt(req.body.trajanje),
+		godina: parseInt(req.body.godina),
 		reziser: req.body.reziser,
-		IMDBocena: parseInt(req.body.IMDBocena)
+		zanr: req.body.zanr,
+		IMDBocena: parseInt(req.body.IMDBocena),
+		opis: req.body.opis
 	}, function (err, result) {
 		if (err) {
 			res.status(400).send(err);
@@ -186,14 +191,25 @@ app.get('/series/:id', function (req, res) {
 	});
 });
 
+// get series with some parameters, prenecemo kasnije parametre
+app.get('/seriesSearch', function (req, res) {
+	db.collection('series').find({IMDBocena: {$gt: 0}}).toArray(function (err, result) {
+		res.status(200).send(result);
+	});
+});
+
+
 //post series
 app.post('/series', function (req, res) {
 	db.collection('series').insertOne({
 		naziv: req.body.naziv,
-		trajanje: req.body.trajanje,
+		brojEpizoda: parseInt(req.body.broj),
+		godina: parseInt(req.body.godina),
+		sezona: parseInt(req.body.sezona),  //ne bih epizode izdvajala
 		reziser: req.body.reziser,
-		sezona: req.body.sezona,
-		IMDBocena: req.body.IMDBocena
+		zanr: req.body.zanr,
+		IMDBocena: parseInt(req.body.IMDBocena),
+		opis: req.body.opis
 	}, function (err, result) {
 		if (err) {
 			res.status(400).send(err);
