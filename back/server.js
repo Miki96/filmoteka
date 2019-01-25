@@ -168,9 +168,24 @@ app.get('/movie/:id', function (req, res) {
 });
 
 
-// get movie with some parameters, prenecemo kasnije parametre
+// get movie with some parameters
 app.get('/movieSearch', function (req, res) {
-	db.collection('movies').find({IMDBocena: {$gt: 0}}).toArray(function (err, result) {
+	let sub = req.query.sub;
+	let god = parseInt(req.query.godina);
+	let zanr = req.query.zanr;
+	let ocena = parseInt(req.query.IMDBocena);
+
+	let query = {};
+	if (zanr) query.zanr = zanr;
+	if (ocena) query.IMDBocena = {$gte: ocena};
+	if (god) query.godina = {$gte: god};
+	if (sub) query.naziv = {$regex: sub};
+
+
+	db.collection('movies').find(
+		query
+		
+	).toArray(function (err, result) {
 		res.status(200).send(result);
 	});
 });
@@ -195,6 +210,16 @@ app.post('/movie', function (req, res) {
 	});
 });
 
+// delete all movies
+app.delete('/movies', function (req, res) {
+	db.collection('movies').remove({}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send("deleted all movies");
+	});
+});
+
 
 
 
@@ -214,9 +239,25 @@ app.get('/series/:id', function (req, res) {
 	});
 });
 
-// get series with some parameters, prenecemo kasnije parametre
+// get series with some parameters
 app.get('/seriesSearch', function (req, res) {
-	db.collection('series').find({IMDBocena: {$gt: 0}}).toArray(function (err, result) {
+	let sub = req.query.sub;
+	let god = parseInt(req.query.godina);
+	let zanr = req.query.zanr;
+	let ocena = parseInt(req.query.IMDBocena);
+	let epizode = parseInt(req.query.epizode);
+
+	let query = {};
+	if (zanr) query.zanr = zanr;
+	if (ocena) query.IMDBocena = {$gte: ocena};
+	if (god) query.godina = {$gte: god};
+	if (epizode) query.epizode = {$gte: epizode};
+	if (sub) query.naziv = {$regex: sub};
+
+	db.collection('series').find(
+		query
+		
+	).toArray(function (err, result) {
 		res.status(200).send(result);
 	});
 });
