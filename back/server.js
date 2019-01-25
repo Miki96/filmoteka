@@ -97,6 +97,110 @@ app.delete('/user/:id', function (req, res) {
 	});
 });
 
+//delete all users
+app.delete('/user', function (req, res) {
+	db.collection('users').remove({}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send("deleted all documents");
+	});
+});
+
+// update user  nije zavrsen
+app.put('/user/:id', function (req, res) {
+	let ids = req.params.id;
+	console.log(ids);
+	var id = require('mongodb').ObjectID(ids);
+	
+	db.collection('users').findOne({
+		_id: id
+	}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
+
+
+
+// get movie
+app.get('/movie/:id', function (req, res) {
+	let ids = req.params.id;
+	console.log(ids);
+	var id = require('mongodb').ObjectID(ids);
+	
+	db.collection('movies').findOne({
+		_id: id
+	}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
+//post movie
+app.post('/movie', function (req, res) {
+	db.collection('movies').insertOne({
+		naziv: req.body.naziv,
+		trajanje: req.body.trajanje,
+		reziser: req.body.reziser,
+		IMDBocena: req.body.IMDBocena
+	}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		// saved
+		res.status(201).send('ok');
+	});
+});
+
+
+
+// get series
+app.get('/series/:id', function (req, res) {
+	let ids = req.params.id;
+	console.log(ids);
+	var id = require('mongodb').ObjectID(ids);
+	
+	db.collection('series').findOne({
+		_id: id
+	}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
+//post series
+app.post('/series', function (req, res) {
+	db.collection('series').insertOne({
+		naziv: req.body.naziv,
+		trajanje: req.body.trajanje,
+		reziser: req.body.reziser,
+		sezona: req.body.sezona,
+		IMDBocena: req.body.IMDBocena
+	}, function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		// saved
+		res.status(201).send('ok');
+	});
+});
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
 	console.log('Server is up and running on port number ' + port);
