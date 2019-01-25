@@ -38,10 +38,10 @@ app.get('/', function (req, res) {
 app.post('/user', function (req, res) {
 	let username = (req.body.username == null) ? "" : req.body.username.trim();
     let email = (req.body.email == null) ? "" : req.body.email.trim();
-    let pass = (req.body.pass == null) ? "" : req.body.pass.trim();
+    let password = (req.body.password == null) ? "" : req.body.password.trim();
    // let token = crypto.randomBytes(20).toString('hex');
 
-    if (username == "" || email == "" || pass == "") {
+    if (username == "" || email == "" || password == "") {
         res.status(400).send('Form not valid');
         return;
 	}
@@ -49,13 +49,36 @@ app.post('/user', function (req, res) {
 	db.collection('users').insertOne({
 		username: req.body.username,
 		email: req.body.email,
-		password: req.body.pass
+		password: req.body.password
 	}, function (err, result) {
 		if (err) {
 			res.status(400).send(err);
 		}
 		// saved
 		res.status(201).send('ok');
+	});
+});
+
+//LOGIN
+app.post('/auth', function(req, res){
+    let user = (req.body.username == null) ? "" : req.body.username.trim();
+    let pass = (req.body.password == null) ? "" : req.body.password.trim();
+
+    console.log(user);
+    console.log(pass);
+
+    if (user == "" || pass == "") {
+        res.status(400).send('Form not valid');
+        return;
+	}
+	db.collection('users').findOne({
+		username:user, 
+		password:pass
+	}, function (err, result) {
+		if (err || !result) {
+			res.status(400).send('Wrong email or password');
+		}
+		res.status(200).send(result);
 	});
 });
 
