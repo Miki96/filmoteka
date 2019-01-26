@@ -130,15 +130,21 @@ app.delete('/user', function (req, res) {
 	});
 });
 
-// update user  nije zavrsen
-app.put('/user/:id', function (req, res) {
+// update user  nije zavrsen  //post
+app.put('/addMovie/:id', function (req, res) {
 	let ids = req.params.id;
-	console.log(ids);
-	var id = require('mongodb').ObjectID(ids);
-	
-	db.collection('users').findOne({
-		_id: id
-	}, function (err, result) {
+	let idFilma = req.body.idFilma;
+
+	//console.log(idFilma);
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
+
+	let query = {$addToSet: {filmovi: {idFilma: idF} }};
+
+	db.collection('users').updateOne({
+		_id: id},
+		query, 
+		function (err, result) {
 		if (err) {
 			res.status(400).send(err);
 		}
@@ -146,7 +152,27 @@ app.put('/user/:id', function (req, res) {
 	});
 });
 
+app.put('/addComm/:id', function (req, res) {
+	let ids = req.params.id;
+	let idFilma = req.body.idf;
+	let kom = req.body.kom;
 
+	// console.log(kom);
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
+
+	let query = {$set: {'filmovi.$.komentar': kom} };
+
+	db.collection('users').updateOne({
+		_id: id, filmovi: {idFilma: idF} },
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
 
 
 
