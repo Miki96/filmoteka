@@ -152,6 +152,27 @@ app.put('/addMovie/:id', function (req, res) {
 	});
 });
 
+//delete movie from user's list
+app.put('/deleteMovie/:id', function (req, res) {
+	let ids = req.params.id;
+	let idFilma = req.body.idFilma;
+
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
+
+	let query = {$pull: {filmovi: {"idFilma": idF} }};
+	console.log(query);
+	db.collection('users').updateOne({
+		_id: id},
+		query,
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
 app.put('/addCommM/:id', function (req, res) {
 	let ids = req.params.id;
 	let idFilma = req.body.idf;
