@@ -130,15 +130,21 @@ app.delete('/user', function (req, res) {
 	});
 });
 
-// update user  nije zavrsen
-app.put('/user/:id', function (req, res) {
+// update user movies
+app.put('/addMovie/:id', function (req, res) {
 	let ids = req.params.id;
-	console.log(ids);
-	var id = require('mongodb').ObjectID(ids);
-	
-	db.collection('users').findOne({
-		_id: id
-	}, function (err, result) {
+	let idFilma = req.body.idFilma;
+
+	//console.log(idFilma);
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
+
+	let query = {$addToSet: {filmovi: {idFilma: idF} }};
+
+	db.collection('users').updateOne({
+		_id: id},
+		query, 
+		function (err, result) {
 		if (err) {
 			res.status(400).send(err);
 		}
@@ -146,8 +152,113 @@ app.put('/user/:id', function (req, res) {
 	});
 });
 
+app.put('/addCommM/:id', function (req, res) {
+	let ids = req.params.id;
+	let idFilma = req.body.idf;
+	let kom = req.body.kom;
 
+	// console.log(kom);
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
 
+	let query = {$set: {'filmovi.$.komentar': kom} };
+
+	db.collection('users').updateOne({
+		_id: id, "filmovi.idFilma": idF },
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send('comment added');
+	});
+});
+
+app.put('/addRatingM/:id', function (req, res) {
+	let ids = req.params.id;
+	let idFilma = req.body.idf;
+	let ocena = parseInt(req.body.ocena);
+
+	let id = require('mongodb').ObjectID(ids);
+	let idF = require('mongodb').ObjectID(idFilma);
+
+	let query = {$set: {'filmovi.$.ocena': ocena} };
+
+	db.collection('users').updateOne({
+		_id: id, "filmovi.idFilma": idF },
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send('rating added');
+	});
+});
+
+// update user series 
+app.put('/addSeries/:id', function (req, res) {
+	let ids = req.params.id;
+	let idSerije = req.body.idSerije;
+
+	//console.log(idSerije);
+	let id = require('mongodb').ObjectID(ids);
+	let idS = require('mongodb').ObjectID(idSerije);
+
+	let query = {$addToSet: {serije: {idSerije: idS} }};
+
+	db.collection('users').updateOne({
+		_id: id},
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
+app.put('/addCommS/:id', function (req, res) {
+	let ids = req.params.id;
+	let idSerije = req.body.idSerije;
+	let kom = req.body.kom;
+
+	// console.log(kom);
+	let id = require('mongodb').ObjectID(ids);
+	let idS = require('mongodb').ObjectID(idSerije);
+
+	let query = {$set: {'serije.$.komentar': kom} };
+
+	db.collection('users').updateOne({
+		_id: id, "serije.idSerije": idS },
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send('comment added');
+	});
+});
+
+app.put('/addRatingS/:id', function (req, res) {
+	let ids = req.params.id;
+	let idSerije = req.body.idSerije;
+	let ocena = parseInt(req.body.ocena);
+
+	let id = require('mongodb').ObjectID(ids);
+	let idS = require('mongodb').ObjectID(idSerije);
+
+	let query = {$set: {'serije.$.ocena': ocena} };
+
+	db.collection('users').updateOne({
+		_id: id, "serije.idSerije": idS },
+		query, 
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send('rating added');
+	});
+});
 
 
 
