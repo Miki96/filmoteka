@@ -211,6 +211,7 @@ app.delete('/user', function (req, res) {
 	});
 });
 
+
 // update user movies
 app.put('/addMovie/:id', function (req, res) {
 	let ids = userID;
@@ -294,6 +295,25 @@ app.put('/addRatingM/:id', function (req, res) {
 		res.status(200).send('rating added');
 	});
 });
+
+//filmovi na osnovu niza id-jeva
+app.post('/movieList', function (req, res) {
+	let niz = [];
+	let nizId = req.body.id;
+	
+	nizId.forEach(element => {
+		niz.push(mongo.ObjectID(element));
+	});
+
+	
+	db.collection('movies').find(
+		{ _id : { $in : niz } }
+	).toArray(function (err, result) {
+		res.status(200).send(result);
+	});
+
+});
+
 
 // update user series 
 app.put('/addSeries/:id', function (req, res) {
@@ -492,9 +512,6 @@ app.post('/series', function (req, res) {
 		res.status(201).send('ok');
 	});
 });
-
-
-
 
 
 
