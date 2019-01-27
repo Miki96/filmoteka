@@ -1,26 +1,31 @@
 <template>
   <form @submit.prevent="submit">
     <div class="FormHeader">
-      <span>Novi Nalog</span>
+      <span>Nalog</span>
       <div class="switch" @click="switchTab">
         <i class="fa fa-sign-in"></i>
       </div>
     </div>
     <ul>
       <li>
-        <i class="fa fa-user"></i>
-        <input type="text" id="name" name="username" placeholder="Korisničko Ime">
-        <i class="fa fa-times wrongName" aria-hidden="true"></i>
-      </li>
-      <li>
-        <i class="fa fa-user"></i>
-        <input type="email" id="mail" name="email" placeholder="E-mail">
+        <i class="fa fa-envelope"></i>
+        <input type="email" v-model="email" placeholder="E-mail">
         <i class="fa fa-times wrongMail" aria-hidden="true"></i>
       </li>
       <li>
         <i class="fa fa-lock"></i>
-        <input type="password" id="pass" name="password" placeholder="Lozinka">
+        <input type="password" v-model="pass" placeholder="Lozinka" minlength="8">
         <i class="fa fa-times wrongPass" aria-hidden="true"></i>
+      </li>
+      <li>
+        <i class="fa fa-user"></i>
+        <input type="text" v-model="fname" placeholder="Ime">
+        <i class="fa fa-times wrongFirst" aria-hidden="true"></i>
+      </li>
+			<li>
+        <i class="fa fa-info"></i>
+        <input type="text" v-model="lname" placeholder="Prezime">
+        <i class="fa fa-times wrongLast" aria-hidden="true"></i>
       </li>
     </ul>
     <div class="FormSubmit">
@@ -30,10 +35,40 @@
 </template>
 
 <script>
+import ajax from '../http-common.js';
+
 export default {
+	data: function () {
+		return {
+			email: '',
+			fname: '',
+			lname: '',
+			pass: ''
+		}
+	},
   methods: {
     submit () {
-      console.log('submit');
+			if (this.email == '' || this.fname == '' || this.lname == '' || this.pass == '') {
+				// form not valid
+				return;
+			}
+			// form valid
+			ajax.post('user', {
+				fname: this.fname,
+				lname: this.lname,
+				password: this.pass,
+				email: this.email
+			})
+			.then(response => {
+				// success, move to login and show message
+				console.log(response);
+				this.$router.push('login');
+				// this.$root.$emit('showMsg', 'Account created. Please login.');
+			})
+			.catch(e => {
+				console.log(e.response.data);
+				// this.$root.$emit('showMsg', e.response.data);
+			});
     },
     switchTab () {
       this.$parent.tabs = 0;
@@ -77,7 +112,7 @@ export default {
 	color: #333;
 }
 
-.wrongName, .wrongPass, .wrongMail {
+.wrongFirst, .wrongLast, .wrongPass, .wrongMail {
     display: none;
     color: rgb(214, 52, 52);
 }

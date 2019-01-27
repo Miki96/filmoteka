@@ -9,12 +9,12 @@
     <ul>
       <li>
         <i class="fa fa-user"></i>
-        <input type="text" id="name" name="username" placeholder="Korisničko Ime">
+        <input type="email" v-model="email" placeholder="E-mail">
         <i class="fa fa-times wrongName" aria-hidden="true"></i>
       </li>
       <li>
         <i class="fa fa-lock"></i>
-        <input type="password" id="pass" name="password" placeholder="Lozinka">
+        <input type="password" v-model="pass" placeholder="Lozinka" minlength="8">
         <i class="fa fa-times wrongPass" aria-hidden="true"></i>
       </li>
     </ul>
@@ -25,10 +25,40 @@
 </template>
 
 <script>
+import ajax from '../http-common.js';
+
 export default {
+	data: function () {
+		return {
+			email: '',
+			pass: ''
+		}
+	},
   methods: {
     submit () {
-      console.log('submit');
+			if (this.user == '' || this.pass == '') {
+				// form not valid
+				return;
+			}
+			// form valid
+			ajax.post('auth', {
+				email: this.email,
+				password: this.pass
+			})
+			.then(res => {
+				// save token and ID
+				localStorage.setItem('token', res.data['token']);
+				localStorage.setItem('id', res.data['id']);
+				this.$root.user['id'] = localStorage.getItem('id');
+				this.$root.user['token'] = localStorage.getItem('token');
+				console.log(res);
+				// go to main page
+				this.$router.push('/');
+			})
+			.catch(e => {
+				console.log(e.response.data);
+				// this.$root.$emit('showMsg', e.response.data);
+			});
     },
     switchTab () {
       this.$parent.tabs = 1;
@@ -77,7 +107,7 @@ export default {
 	display: none;
 }
 
-.LoginPanel ul li input[type=text], .LoginPanel ul li input[type=password] {
+.LoginPanel ul li input[type=email], .LoginPanel ul li input[type=password] {
 	padding: 10px;
 	border:none;
 	background-color: rgba(0,0,0,0);

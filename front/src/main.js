@@ -6,5 +6,11 @@ Vue.config.productionTip = false
 
 new Vue({
   router,
+  data: {
+    user: {
+      'id' : localStorage.getItem('id'),
+      'token' : localStorage.getItem('token')
+    }
+  },
   render: h => h(App)
 }).$mount('#app')

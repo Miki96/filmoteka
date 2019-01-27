@@ -1,24 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
+const mongo = require('mongodb');
+const MongoClient = mongo.MongoClient;
+const history = require('connect-history-api-fallback');
+const crypto = require('crypto');
 
-// app
 const app = express();
 const port = 3000;
 
 // parse application/x-www-form-urlencoded
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Connection URL
+// MongoDB
 const url = 'mongodb://localhost:27017';
-
-// Database Name
 const dbName = 'filmovi';
-
-// Create a new MongoClient
 const client = new MongoClient(url, { useNewUrlParser: true });
-
-// Database var
 let db;
 
 // Use connect method to connect to the Server
@@ -26,61 +23,147 @@ client.connect(function (err) {
 	console.log("Connected successfully to server");
 	// save client to db
 	db = client.db(dbName);
-	//client.close();
 });
 
-//test
-app.get('/', function (req, res) {
-	res.send('Hello World');
+// history mode
+app.use(history());
+
+// Add CORS
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercepts OPTIONS method
+    if ('OPTIONS' === req.method) {
+        res.sendStatus(200);
+    } else {
+        next();
+    }
 });
+
+
+// Nezasticene rute //
 
 // SIGN UP
 app.post('/user', function (req, res) {
-	let username = (req.body.username == null) ? "" : req.body.username.trim();
+	let fname = (req.body.fname == null) ? "" : req.body.fname.trim();
+	let lname = (req.body.lname == null) ? "" : req.body.lname.trim();
     let email = (req.body.email == null) ? "" : req.body.email.trim();
     let password = (req.body.password == null) ? "" : req.body.password.trim();
-   // let token = crypto.randomBytes(20).toString('hex');
+   	let token = crypto.randomBytes(20).toString('hex');
 
-    if (username == "" || email == "" || password == "") {
+    if (fname == "" || lname == "" || email == "" || password == "") {
         res.status(400).send('Form not valid');
         return;
 	}
 	
 	db.collection('users').insertOne({
-		username: req.body.username,
-		email: req.body.email,
-		password: req.body.password
+		fname: fname,
+		lname: lname,
+		email: email,
+		password: password,
+		token: token
 	}, function (err, result) {
 		if (err) {
 			res.status(400).send(err);
+			return;
 		}
 		// saved
 		res.status(201).send('ok');
 	});
 });
 
-//LOGIN
+// LOGIN
 app.post('/auth', function(req, res){
-    let user = (req.body.username == null) ? "" : req.body.username.trim();
-    let pass = (req.body.password == null) ? "" : req.body.password.trim();
+    let email = (req.body.email == null) ? "" : req.body.email.trim();
+	let pass = (req.body.password == null) ? "" : req.body.password.trim();
+	console.log(req.body);
 
-    console.log(user);
-    console.log(pass);
-
-    if (user == "" || pass == "") {
+    if (email == "" || pass == "") {
         res.status(400).send('Form not valid');
         return;
 	}
 	db.collection('users').findOne({
-		username:user, 
-		password:pass
+		email: email, 
+		password: pass
 	}, function (err, result) {
 		if (err || !result) {
 			res.status(400).send('Wrong email or password');
+			return;
 		}
-		res.status(200).send(result);
+		// success
+		res.status(200).send({
+			id: result._id,
+			token: result.token
+		});
 	});
 });
+
+// Dodaje TOKEN ako postoji
+app.use((req, res, next) => {
+    var auth = req.headers.authorization;
+    var token = "";
+    if (auth != null) {
+        token = auth.split(' ')[1];
+        req.body['token'] = token;
+    }
+    console.log('Token Protect: ' + token);
+    next();
+});
+
+// LOG OUT
+app.get('/logout', (req, res) => {
+	var oldtoken = req.body['token'];
+    if (oldtoken == null) {
+		res.status(200).send('How even?');
+    } else {
+		console.log('logout');
+        let token = crypto.randomBytes(20).toString('hex');
+		// change token of user
+		let query = {$set: {'token': token}};
+		db.collection('users').updateOne({
+			token: oldtoken},
+			query, 
+			function (err, result) {
+			if (err) {
+				res.status(404).send();
+			}
+			res.status(200).send('Logged out');
+		});
+    }
+});
+
+
+// Zasticene rute //
+
+var userID = -1;
+
+// Block invalid token middleware
+app.use((req, res, next) => {
+    var token = req.body['token'];
+    if (token == null) {
+        res.status(401).send('No token provided');
+        return;
+    }
+    db.collection('users').findOne({
+		token: token
+	}, function (err, result) {
+		if (err) {
+			res.status(401).send('Invalid token');
+		}
+		// set user ID
+		userID = result._id;
+		next();
+	});
+});
+
+// Provera Tokena
+app.post('/validate', (req, res) => {
+    res.status(200).send({id : userID});
+});
+
+
 
 // get all users
 app.get('/users', function (req, res) {
@@ -92,8 +175,7 @@ app.get('/users', function (req, res) {
 // get user
 app.get('/user/:id', function (req, res) {
 	let ids = req.params.id;
-	console.log(ids);
-	var id = require('mongodb').ObjectID(ids);
+	var id = mongo.ObjectID(ids);
 	
 	db.collection('users').findOne({
 		_id: id

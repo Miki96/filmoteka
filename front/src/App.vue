@@ -17,11 +17,6 @@ body {
 	font-size: 14px;
 	letter-spacing: .1em;
 	color: #eee;
-	background-image: url('assets/images/Blue.jpg');
-	background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 @font-face {
@@ -38,25 +33,6 @@ body {
 
 ::-webkit-scrollbar-track{background-color:rgb(224, 224, 224);}
 
-/* LOGIN PAGE */
-
-
-
-/* ADAPT ZA MAIN */
-
-.LoginAdapt {
-	height: auto;
-	font-size: .5em;
-}
-
-.LoginAdapt .LoginFooterLinksBack {
-	font-size: 2.3em;
-}
-
-.LoginAdapt p {
-	display: none;
-}
-
 /* MAIN PAGE */
 
 .MainBody {
@@ -64,80 +40,6 @@ body {
 	background-image: url('/assets/images/End.png');
 	background-size: cover;
 }
-
-/* NAVIGACIJA */
-
-nav {
-	position: fixed;
-	right: 0;
-	left: 0;
-	top: 0;
-	z-index: 1;
-	font-size: .8em;
-	background-color: rgba(10,10,10,0.8);
-	box-shadow: 0px 0px 17px 1px rgba(0,0,0,0.95);
-	z-index: 3;
-}
-
-nav ul {
-	display: flex;
-	list-style: none;
-	padding: 0px 20px;
-}
-
-nav ul li {
-	padding: 20px 7px;
-	width: 120px;
-	text-transform: uppercase;
-	text-align: center;
-	letter-spacing: .2em;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-nav ul li:hover {
-	color: #aaa;
-}
-
-.aktivan {
-	color: #aaa;	
-}
-
-nav .Korisnik {
-	position: absolute;
-	right: 0;
-	top: 0;
-	text-transform: uppercase;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 1em;
-	height: 53px;
-	padding-right: 20px;
-	cursor: pointer;
-}
-
-.Korisnik p {
-	margin-right: 10px;
-	text-align: right;
-	color: #aaa;
-}
-
-.Korisnik p span {
-	color: #ccc;
-}
-
-.Korisnik .Profil {
-	width: 40px;
-	height: 40px;
-	background-color: rgba(255,255,255,0.1);
-	border-radius: 3px;
-	background-size: 100% 100%;
-	background-image: url("/assets/images/Pro2.jpg");
-	opacity: 0.6;
-	box-shadow: 0px 0px 1px 2px rgba(0,0,0,0.25);
-}
-
 
 /* MAIN CONTENT */
 
@@ -184,13 +86,13 @@ nav .Korisnik {
 }
 
 .Odeljak .Slika .Izmedju:nth-child(1) {
-	right: -2px;
-	background-image: url('/assets/images/Side.svg');
+	right: -1px;
+	background-image: url('assets/images/Side.svg');
 }
 
 .Odeljak .Slika .Izmedju:nth-child(2) {
-	left: -2px;
-	background-image: url('/assets/images/SideInv.svg');
+	left: -1px;
+	background-image: url('assets/images/SideInv.svg');
 }
 
 .Odeljak .Sadrzaj {
@@ -202,10 +104,10 @@ nav .Korisnik {
 	color: #111;
 	display: flex;
 	font-size: 2em;
-	padding: 40px 0;
 }
 
 .deo {
+	padding: 40px 0;
 	flex: 1;
 	min-width: 400px;
 	padding: 10px;
@@ -221,30 +123,22 @@ nav .Korisnik {
 }
 
 .Odeljak:nth-child(1) .Slika{
-	background-image: url('/assets/images/Slika9.jpg');
+	background-image: url('assets/images/Slika9.jpg');
 }
-.FiS .Slika{
-	background-image: url("/assets/images/Slika13.jpg");
+.Odeljak:nth-child(2) .Slika{
+	background-image: url("assets/images/Slika13.jpg");
     background-position: 48%;
 }
 .Odeljak:nth-child(3) .Slika{
-	background-image: url("/assets/images/Slika14.jpg");
+	background-image: url("assets/images/Slika14.jpg");
     background-position: 41%;
 }
 .Odeljak:nth-child(4) .Slika{
-	background-image: url('/assets/images/Slika12.jpg');
+	background-image: url('assets/images/Slika12.jpg');
 	background-position: 30%;
 }
-/* .Prijatelji .Slika {
-	background-image: url('/assets/images/Slika9.jpg');
-	background-position: 45%;
-}
-.Korisnici .Slika {
-	background-image: url('/assets/images/Slika2.jpg');
-	background-position: 45%;
-} */
 
-/* COVER */
+/* MOVIE COVER */
 
 .Cover {
 	background-color: #dfdfdf;
@@ -291,7 +185,7 @@ nav .Korisnik {
 	transform: scale(1.05);
 }
 
-/* CLANAK */
+/* UTISAK */
 
 .Poruka {
 	border-radius: 5px;
@@ -387,73 +281,6 @@ h2 span {
 .Disabled {
 	opacity: 0.3;
 	cursor: not-allowed;
-}
-
-/* POCETNA */
-
-
-.Odeljak:nth-child(1) .deo{
-	flex: 1;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-.Odeljak:nth-child(1)  .projekat {
-	max-width: 450px;
-}
-
-.Odeljak:nth-child(1) .deo .projekat > p {
-	text-align: center;
-	line-height: 1.3em;
-	font-size: .6em;
-	padding-bottom: 10px;
-}
-
-.Odeljak:nth-child(1) .deo:first-child ul {
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	justify-content: space-around;
-}
-
-.Odeljak:nth-child(1) .deo:first-child ul li {
-	width: 45%;
-	background-color: #ead54f;
-	margin-bottom: 20px;
-	cursor: pointer;
-}
-
-
-
-/* HITOVI */
-
-.Odeljak:nth-child(1) .deo:last-child ul {
-	padding-bottom: 0;
-	display: flex;
-	flex-wrap: wrap;
-	list-style: none;
-	justify-content: space-around;
-	max-width: 390px;
-}
-
-.Odeljak:nth-child(1) .deo:last-child ul li {
-	margin-bottom: 20px;
-	width: 170px;
-	height: 240px;
-}
-
-.Odeljak:nth-child(1) .deo:last-child ul li:nth-child(1) {
-	background-image: url('/assets/images/M9.jpg');
-}
-.Odeljak:nth-child(1) .deo:last-child ul li:nth-child(2) {
-	background-image: url('/assets/images/M6.jpg');
-}
-.Odeljak:nth-child(1) .deo:last-child ul li:nth-child(3) {
-	background-image: url('/assets/images/M3.jpg');
-}
-.Odeljak:nth-child(1) .deo:last-child ul li:nth-child(4) {
-	background-image: url('/assets/images/M5.jpg');
 }
 
 /* POLICA */
@@ -599,7 +426,7 @@ h2 span {
 
 .AktivnoPP {
 	display: flex;
-}
+} */
 
 /* FILMOVI */
 
@@ -938,107 +765,6 @@ h2 span {
 .Odeljak:nth-child(4) .Polica tr:hover .Dugme {
 	background-color: #555;
 }
-
-/* RAZLIKA ZA PRIJATELJE */
-
-.Prijatelji .Polica {
-	background-color: #a878ff;
-}
-
-.Prijatelji .Polica tbody tr {
-    border-bottom: 1px solid #834de4;
-}
-
-.Prijatelji .Polica tr:nth-child(even) {
-    background-color: #8f56f5;
-}
-
-.Prijatelji .Polica tr:nth-child(even):hover {
-    background-color: #222;
-    border-bottom: 1px solid #222;
-}
-
-
-.Prijatelji .deo:first-child .Poruka {
-	text-align: center;
-	background-color: #a878ff;
-	cursor: pointer;
-	font-weight: bold;
-	margin-right: 10px;
-}
-
-.Prijatelji .Poruka h4, .Prijatelji .Poruka p {
-	padding: 15px;
-}
-
-.Prijatelji .Poruka p {
-	background-color: #a878ff;
-}
-
-.Prijatelji .Poruka .Ostalo {
-	background-color: #a878ff;	
-}
-
-.Prijatelji .friendBack {
-	display: flex;
-	width: 100%;
-	justify-content: space-around;
-	align-items: center;
-	max-width: 400px;
-}
-
-.Prijatelji .Cover i {
-	color: #a878ff;
-}
-
-.Prijatelji .Cover {
-	background-image: url("/assets/images/S2.jpg");
-}
-
-/* KORISNICI ADMIN */
-
-.Korisnici .Dugme {
-	margin-top: 20px;
-}
-
-.Korisnici form {
-	max-width: 300px;
-	padding: 10px;
-}
-
-.Korisnici form input {
-	font-family: Roboto;
-	outline: none;
-	border-radius: 5px;
-	width: 100%;
-	padding: 15px;
-	margin-bottom: 10px;
-	font-size: .6em;
-	box-shadow: 1px 1px 7px 1px rgba(0,0,0,0.45);
-	border:none;
-	background-color: #efefef;
-}
-
-/* RAZLIKA ZA KORISNIKE */
-
-.Korisnici .Polica {
-	background-color: #eaeaea;
-}
-
-.Korisnici .Polica tbody tr {
-    border-bottom: 1px solid #c1c1c1;
-}
-
-.Korisnici .Polica tr:nth-child(even) {
-    background-color: #d2d2d2;
-}
-
-.Korisnici .Polica tr:nth-child(even):hover {
-    background-color: #222;
-    border-bottom: 1px solid #222;
-}
-
-
 
 /* RESPONSIVE */
 

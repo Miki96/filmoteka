@@ -1,11 +1,11 @@
 <template>
-  <div v-bind:class="{ dark: tab == 1 }">
+  <div v-bind:class="{ dark: tab == 1 }" class="account">
     <div class="LoginPozadina"></div>
     <div class="LoginPozadinaManja"></div>
     <div class="LoginFormBack">
       <div class="LoginPanel">
 				<!-- Login -->
-        <login v-if="tab == 0" />
+        <login v-if="tab == 0"/>
 				<!-- SignUp -->
 				<signup v-if="tab == 1" />
       </div>
@@ -35,6 +35,7 @@
 <script>
 import Login from '@/components/Login.vue'
 import Signup from '@/components/Signup.vue'
+import ajax from '../http-common.js';
 
 export default {
   name: 'account',
@@ -58,17 +59,17 @@ export default {
   methods: {
     // log user out
     logout() {
-      // if (localStorage.getItem('token')) {
-      //   ajax.get('logout')
-      //   .then(res => {
-      //     // remove from storage
-      //     localStorage.clear();
-      //   })
-      //   .catch(e => {
-      //     // remove from storage
-      //     localStorage.clear();
-      //   });
-      // }
+      if (localStorage.getItem('token')) {
+        ajax.get('logout')
+        .then(res => {
+          // remove from storage
+          localStorage.clear();
+        })
+        .catch(e => {
+          // remove from storage
+          localStorage.clear();
+        });
+      }
     }
   },
   created() {
@@ -83,6 +84,13 @@ export default {
 
 
 <style scoped>
+.account {
+  background-image: url('../assets/images/Blue.jpg');
+	background-position: center center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 
 .LoginPozadina {
 	background-image: url("../assets/images/popcorn.png");
@@ -127,46 +135,6 @@ export default {
 	color: #222;
 	transition: color 0.3s, background-color 0.3s;
 	padding: 0 20px;
-}
-
-.LoginFooter .menjaj {
-	position: absolute;
-	top: -90px;
-	top: -10vh;
-	color: #eee;
-	font-size: 3em;
-	font-size: 2.3vh;
-	border-radius: 50%;
-	background-color: rgba(0,0,0,0.9);
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 8vh;
-	height: 8vh;
-	cursor: pointer;
-	box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.55);
-}
-
-.LoginFooter .menjaj:hover {
-	box-shadow: 0px 0px 7px 1px rgba(0,0,0,0.75);
-}
-
-.LoginFooter .next {
-	right: 30px;
-}
-
-.LoginFooter .next i {
-	position: relative;
-	right: -0.1em;
-}
-
-.LoginFooter .prev {
-	left: 30px;
-}
-
-.LoginFooter .prev i {
-	position: relative;
-	
 }
 
 .LoginFooterBack {
