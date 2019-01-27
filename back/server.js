@@ -151,6 +151,7 @@ app.use((req, res, next) => {
 	}, function (err, result) {
 		if (err) {
 			res.status(401).send('Invalid token');
+			return;
 		}
 		// set user ID
 		userID = result._id;
@@ -162,8 +163,6 @@ app.use((req, res, next) => {
 app.post('/validate', (req, res) => {
     res.status(200).send({id : userID});
 });
-
-
 
 // get all users
 app.get('/users', function (req, res) {
@@ -214,10 +213,8 @@ app.delete('/user', function (req, res) {
 
 // update user movies
 app.put('/addMovie/:id', function (req, res) {
-	let ids = req.params.id;
-	let idFilma = req.body.idFilma;
-
-	//console.log(idFilma);
+	let ids = userID;
+	let idFilma = req.params.id;
 	let id = require('mongodb').ObjectID(ids);
 	let idF = require('mongodb').ObjectID(idFilma);
 
@@ -300,10 +297,9 @@ app.put('/addRatingM/:id', function (req, res) {
 
 // update user series 
 app.put('/addSeries/:id', function (req, res) {
-	let ids = req.params.id;
-	let idSerije = req.body.idSerije;
+	let ids = userID;
+	let idSerije = req.params.id;
 
-	//console.log(idSerije);
 	let id = require('mongodb').ObjectID(ids);
 	let idS = require('mongodb').ObjectID(idSerije);
 
@@ -383,22 +379,22 @@ app.get('/movie/:id', function (req, res) {
 
 
 // get movie with some parameters
-app.get('/movieSearch', function (req, res) {
-	let sub = req.query.sub;
-	let god = parseInt(req.query.godina);
-	let zanr = req.query.zanr;
-	let ocena = parseInt(req.query.IMDBocena);
+app.post('/movieSearch', function (req, res) {
+	console.log(req.body);
+	let sub = req.body.sub;
+	let god = parseInt(req.body.godina);
+	let zanr = req.body.zanr;
+	let ocena = parseFloat(req.body.ocena);
 
 	let query = {};
 	if (zanr) query.zanr = zanr;
-	if (ocena) query.IMDBocena = {$gte: ocena};
+	if (ocena) query.ocena = {$gte: ocena};
 	if (god) query.godina = {$gte: god};
-	if (sub) query.naziv = {$regex: sub};
-
+	if (sub) query.naziv = {$regex: sub, $options: "$i"};
+	console.log(query);
 
 	db.collection('movies').find(
 		query
-		
 	).toArray(function (err, result) {
 		res.status(200).send(result);
 	});
@@ -454,23 +450,23 @@ app.get('/series/:id', function (req, res) {
 });
 
 // get series with some parameters
-app.get('/seriesSearch', function (req, res) {
-	let sub = req.query.sub;
-	let god = parseInt(req.query.godina);
-	let zanr = req.query.zanr;
-	let ocena = parseInt(req.query.IMDBocena);
-	let epizode = parseInt(req.query.epizode);
+app.post('/seriesSearch', function (req, res) {
+	let sub = req.body.sub;
+	let god = parseInt(req.body.godina);
+	let zanr = req.body.zanr;
+	let ocena = parseFloat(req.body.ocena);
+	let epizode = parseInt(req.body.epizode);
 
 	let query = {};
 	if (zanr) query.zanr = zanr;
-	if (ocena) query.IMDBocena = {$gte: ocena};
+	if (ocena) query.ocena = {$gte: ocena};
 	if (god) query.godina = {$gte: god};
 	if (epizode) query.epizode = {$gte: epizode};
-	if (sub) query.naziv = {$regex: sub};
+	if (sub) query.naziv = {$regex: sub, $options: "$i"};
+	console.log(query);
 
 	db.collection('series').find(
 		query
-		
 	).toArray(function (err, result) {
 		res.status(200).send(result);
 	});
@@ -481,12 +477,12 @@ app.get('/seriesSearch', function (req, res) {
 app.post('/series', function (req, res) {
 	db.collection('series').insertOne({
 		naziv: req.body.naziv,
-		brojEpizoda: parseInt(req.body.broj),
+		epizode: parseInt(req.body.broj),
 		godina: parseInt(req.body.godina),
 		sezona: parseInt(req.body.sezona),  //ne bih epizode izdvajala
 		reziser: req.body.reziser,
 		zanr: req.body.zanr,
-		IMDBocena: parseInt(req.body.IMDBocena),
+		ocena: parseInt(req.body.ocena),
 		opis: req.body.opis
 	}, function (err, result) {
 		if (err) {

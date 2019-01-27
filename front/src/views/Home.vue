@@ -3,10 +3,10 @@
     <!-- Navigation -->
     <nav>
       <ul>
-        <router-link tag="li" to="/home">Pocetna</router-link>
-        <router-link tag="li" to="/movies">Filmovi</router-link>
-        <router-link tag="li" to="/shows">Serije</router-link>
-        <router-link tag="li" to="/search">Pretraga</router-link>
+        <router-link tag="li" active-class="aktivan" to="/home">Pocetna</router-link>
+        <router-link tag="li" active-class="aktivan" to="/movies">Filmovi</router-link>
+        <router-link tag="li" active-class="aktivan" to="/shows">Serije</router-link>
+        <router-link tag="li" active-class="aktivan" to="/search">Pretraga</router-link>
       </ul>
       <div class="Korisnik">
         <p>{{fname}}<br><span>{{lname}}</span></p>
@@ -115,9 +115,14 @@ export default {
     loadUser() {
       ajax.get('user/' + this.$root.user['id'])
 			.then(response => {
-				// get first and last name
+        // get first and last name
         this.fname = response.data.fname;
         this.lname = response.data.lname;
+        // save series and movies
+        if (response.data.filmovi != null)
+          this.$root.user['movies'] = response.data.filmovi.map(f => f.idFilma);
+        if (response.data.serije != null)
+          this.$root.user['series'] = response.data.serije.map(s => s.idSerije);
 			})
 			.catch(e => {
 				console.log(e.response.data);

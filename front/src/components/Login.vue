@@ -8,7 +8,7 @@
     </div>
     <ul>
       <li>
-        <i class="fa fa-user"></i>
+        <i class="fa fa-envelope"></i>
         <input type="email" v-model="email" placeholder="E-mail">
         <i class="fa fa-times wrongName" aria-hidden="true"></i>
       </li>

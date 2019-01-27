@@ -343,6 +343,10 @@ h2 span {
 	background-color: #222;	
 }
 
+.Polica th:first-child, .Polica td:first-child {
+	width: 100px;
+}
+
 .Polica tbody {
 	font-size: 0.6em;
 	max-height: 45vh;
@@ -399,7 +403,6 @@ h2 span {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	display: none;
 }
 
 .Prazno {
@@ -416,7 +419,6 @@ h2 span {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	display: none;
 }
 
 .Prazno i {
@@ -426,7 +428,7 @@ h2 span {
 
 .AktivnoPP {
 	display: flex;
-} */
+}
 
 /* FILMOVI */
 
@@ -606,164 +608,6 @@ h2 span {
 
 .Odeljak:nth-child(3) .Cover i {
 	color: #FF9800;
-}
-
-/* PRETRAGA */
-.Odeljak:nth-child(4) form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-}
-
-.Odeljak:nth-child(4) .sBack {
-	display: flex;
-	width: 100%;
-	max-width: 400px;
-	align-items: center;
-	justify-content: center;
-	margin: 15px 0;
-}
-
-.Odeljak:nth-child(4) .sBack:nth-child(3) {
-	margin-bottom: 0;
-}
-
-.Odeljak:nth-child(4) .sBack:nth-child(4) {
-	margin-bottom: 0;
-}
-
-.Odeljak:nth-child(4) .sBack:nth-child(5) {
-	margin-top: 0;
-}
-
-.Odeljak:nth-child(4) .sBack:first-child {
-	justify-content: space-between;
-}
-
-.Odeljak:nth-child(4) .sBack:first-child h2 {
-	padding: 20px 0px;
-}
-
-.Odeljak:nth-child(4) .sBack:last-child {
-	justify-content: flex-end;
-	padding-right: 10px;
-}
-
-.Odeljak:nth-child(4) .sBack:last-child .Dugme {
-	font-size: 0.5em;
-}
-
-.Odeljak:nth-child(4) span {
-	font-family: Roboto;
-	color: #222;
-}
-
-.Odeljak:nth-child(4) .DugS {
-	padding: 0;
-	background-color: #eee;
-}
-
-.Odeljak:nth-child(4) .DugS i {
-	padding: 20px 30px;
-	background-color: #222;
-	border-top-right-radius: 5px;
-	border-bottom-right-radius: 5px;
-}
-
-.Odeljak:nth-child(4) .DugS:hover {
-	box-shadow: 1px 1px 7px 1px rgba(0,0,0,0.45);
-	color: #eee;
-}
-
-.Odeljak:nth-child(4) form input[type=text] {
-	padding: 15px 25px;
-	border: none;
-	background-color: rgba(255,255,255,0);
-	outline: none;
-	color: #333;
-	margin-right: 20px;
-	font-family: Roboto;
-	font-size: 1em;
-	max-width: 250px;
-}
-
-/* FILM SERIJA */
-
-.Izbor {
-	border-radius: 10px;
-	display: flex;
-	background-color: #ddd;
-	font-weight: bold;
-	position: relative;
-	overflow: hidden;
-	font-size: 0.6em;
-	color: #999;
-	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.65);
-	
-}
-
-.Izbor p {
-	flex:1;
-	padding: 20px;
-	width: 100px;
-	text-align: center;
-	cursor: pointer;
-}
-
-.Izabran {
-	background-color: #333;
-	color: #eee;
-}
-
-/* PREPRAVKE */
-
-.Odeljak:nth-child(4) .Poruka {
-	flex: 1;
-	margin: 10px;
-	cursor: pointer;
-	background-color: #f44336;
-}
-
-.Odeljak:nth-child(4) .Poruka:hover {
-	box-shadow: 0px 0px 7px 0px rgba(0,0,0,0.55);
-}
-
-
-.Odeljak:nth-child(4) .Poruka p {
-	font-weight: bold;
-	text-align: center;
-}
-
-
-/* REZULTATI */
-
-.Odeljak:nth-child(4) .Polica {
-	background-color: #F44336;
-}
-
-.Odeljak:nth-child(4) .Polica tbody tr {
-    border-bottom: 1px solid #c1352a;
-}
-
-.Odeljak:nth-child(4) .Polica tr:nth-child(even) {
-    background-color: #d4362a;
-}
-
-.Odeljak:nth-child(4) .Polica tr:nth-child(even):hover {
-    background-color: #222;
-    border-bottom: 1px solid #222;
-}
-
-.Odeljak:nth-child(4) .Polica .Dugme {
-	padding: 10px;
-	font-size: 0.7em;
-}
-
-.Odeljak:nth-child(4) .Polica tr:hover .Dugme {
-	background-color: #555;
 }
 
 /* RESPONSIVE */

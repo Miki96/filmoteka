@@ -9,7 +9,9 @@ new Vue({
   data: {
     user: {
       'id' : localStorage.getItem('id'),
-      'token' : localStorage.getItem('token')
+      'token' : localStorage.getItem('token'),
+      movies : [],
+      series : []
     }
   },
   render: h => h(App)
