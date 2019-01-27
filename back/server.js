@@ -242,7 +242,7 @@ app.put('/deleteMovie/:id', function (req, res) {
 	let id = require('mongodb').ObjectID(ids);
 	let idF = require('mongodb').ObjectID(idFilma);
 
-	let query = {$pull: {filmovi: {"idFilma": idF} }};
+	let query = {$pull: {filmovi: {idFilma: idF} }};
 	console.log(query);
 	db.collection('users').updateOne({
 		_id: id},
