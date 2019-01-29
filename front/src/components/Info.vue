@@ -14,20 +14,20 @@
           <h2>Uputstvo</h2>
           <ul>
             <li class="Poruka">
-              <h4>Filmovi</h4>
-              <p>Pogledajte trailer za hitove koje uskoro dolaze u bioskope.</p>
-            </li>
-            <li class="Poruka">
-              <h4>Serije</h4>
-              <p>Pogledajte koji se to filmovi daju, kada i u kojim bioskopima.</p>
+              <h4>Upustvo</h4>
+              <p>Stranica koja pruza pregled osnovnih funkcionalnosti sajta.</p>
             </li>
             <li class="Poruka">
               <h4>Pretraga</h4>
+              <p>Pretrazite bazu podataka po zanru, godini, oceni...</p>
+            </li>
+            <li class="Poruka">
+              <h4>Filmovi</h4>
               <p>Idealno mesto da cuvate sve filmove koje ste odgledali.</p>
             </li>
             <li class="Poruka">
-              <h4>Prijatelji</h4>
-              <p>Pretrazite bazu podataka po zanru, godini, oceni...</p>
+              <h4>Serije</h4>
+              <p>Idealno mesto da cuvate sve TV serije koje pratite.</p>
             </li>
           </ul>
           <h2>Uzivajte!</h2>

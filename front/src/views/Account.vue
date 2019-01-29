@@ -1,6 +1,6 @@
 <template>
   <div v-bind:class="{ dark: tab == 1 }" class="account">
-    <div class="LoginPozadina"></div>
+    <div ref="back" class="LoginPozadina"></div>
     <div class="LoginPozadinaManja"></div>
     <div class="LoginFormBack">
       <div class="LoginPanel">
@@ -59,6 +59,9 @@ export default {
   methods: {
     // log user out
     logout() {
+      // clear user
+      this.$root.user.movies = [];
+      this.$root.user.series = [];
       if (localStorage.getItem('token')) {
         ajax.get('logout')
         .then(res => {
@@ -70,10 +73,24 @@ export default {
           localStorage.clear();
         });
       }
+    },
+    moveMouse(event) {
+      let pom = 20;
+      let wh = window.innerHeight;
+      let ww = window.innerWidth;
+      let x = ((event.pageX - (ww/2))/(ww/2) * pom);
+      let y = ((event.pageY - (wh/2))/(wh/2) * pom);
+      this.$refs.back.style.transform = "translateX(" + x + "px) translateY(" +  y + "px)";
     }
   },
   created() {
     this.logout();
+  },
+  mounted() {
+    window.addEventListener('mousemove', this.moveMouse);
+  },
+  destroyed() {
+    window.removeEventListener('mousemove', this.moveMouse);
   },
   components: {
     Login,

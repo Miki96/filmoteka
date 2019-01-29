@@ -234,11 +234,11 @@ app.put('/addMovie/:id', function (req, res) {
 
 //delete movie from user's list
 app.put('/deleteMovie/:id', function (req, res) {
-	let ids = req.params.id;
-	let idFilma = req.body.idFilma;
+	let ids = userID;
+	let idFilma = req.params.id;
 
-	let id = require('mongodb').ObjectID(ids);
-	let idF = require('mongodb').ObjectID(idFilma);
+	let id = mongo.ObjectID(ids);
+	let idF = mongo.ObjectID(idFilma);
 
 	let query = {$pull: {filmovi: {idFilma: idF} }};
 	console.log(query);
@@ -254,13 +254,12 @@ app.put('/deleteMovie/:id', function (req, res) {
 });
 
 app.put('/addCommM/:id', function (req, res) {
-	let ids = req.params.id;
-	let idFilma = req.body.idf;
+	let ids = userID;
+	let idFilma = req.params.id;
 	let kom = req.body.kom;
 
-	// console.log(kom);
-	let id = require('mongodb').ObjectID(ids);
-	let idF = require('mongodb').ObjectID(idFilma);
+	let id = mongo.ObjectID(ids);
+	let idF = mongo.ObjectID(idFilma);
 
 	let query = {$set: {'filmovi.$.komentar': kom} };
 
@@ -276,8 +275,8 @@ app.put('/addCommM/:id', function (req, res) {
 });
 
 app.put('/addRatingM/:id', function (req, res) {
-	let ids = req.params.id;
-	let idFilma = req.body.idf;
+	let ids = userID;
+	let idFilma = req.params.id;
 	let ocena = parseInt(req.body.ocena);
 
 	let id = require('mongodb').ObjectID(ids);

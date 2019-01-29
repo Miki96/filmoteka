@@ -159,12 +159,8 @@ body {
 	opacity: 0;
 	transition: opacity 0.3s;
 	color: #eee;
-	display: flex;
-	align-items: center;
-	text-align: center;
-	justify-content: center;
 	padding: 10px;
-	font-size: .5em;
+	font-size: 13px;
 }
 
 .Cover span {
@@ -260,6 +256,10 @@ h2 span {
 	font-weight: bold;
 }
 
+.title {
+	font-family: Roboto;
+}
+
 /* DUGME */
 
 .Dugme {
@@ -304,12 +304,12 @@ h2 span {
 }
 
 .Polica i {
-	position: absolute;
+	/* position: absolute;
 	bottom: 2px;
 	font-size: 0.8em;
 	right: 0px;
 	left: 0px;
-	color: #ccc;
+	color: #ccc; */
 }
 
 .Polica span {
@@ -353,6 +353,7 @@ h2 span {
 	overflow-y: auto;
 	display: block;
 	font-weight: bold;
+	font-family: Roboto;
 }
 
 .Polica thead, .Polica tbody tr {
@@ -363,6 +364,7 @@ h2 span {
 
 .Polica tr {
 	border-bottom: 1px solid #6fbfff;
+	position: relative;
 }
 
 .Polica tr:last-child {
@@ -441,10 +443,11 @@ h2 span {
 
 .FiS .DugmetaBack {
 	display: flex;
-	justify-content: space-around;
+	justify-content: flex-end;
 	align-items: center;
-	padding-top: 10px;
-	max-width: 450px;
+	padding-top: 20px;
+	width: 100%;
+	max-width: 400px;
 }
 
 .FiS .DugmetaBack .Poruka {
@@ -465,7 +468,6 @@ h2 span {
 .FiS .Cover, .Prijatelji .Cover {
 	width: 20vh;
 	height: 28vh;
-	background-image: url('/assets/images/M9.jpg');
 }
 
 .FiS .Cover i {
@@ -480,18 +482,27 @@ h2 span {
 }
 
 .Plot table {
-	border-collapse: collapse;
 	font-size: 0.8em;
+	border-collapse:separate; 
+  	border-spacing: 0 2px;
 }
 
 .Plot table td {
 	padding: 3px 15px;
-	color: #777;
+	color: #888;
+	font-family: Roboto;
+}
+
+
+.Plot table td:nth-child(2) {
+	font-size: 0.9em;
+	min-width: 150px;
 }
 
 .Plot table td:first-child {
 	font-weight: bold;
 	color: #222;
+	font-family: Kano;
 }
 
 .Plot table span {
@@ -500,7 +511,18 @@ h2 span {
 
 .Plot .Zvezde {
 	color: #444;
+	font-size: 20px !important;
 }
+
+.Plot .Zvezde i {
+	margin-right: 4px;
+	cursor: pointer;
+}
+
+.Plot .Zvezde .gold {
+	color: orange;
+}
+
 
 .myInfo {
 	display: flex;
@@ -524,11 +546,15 @@ h2 span {
 	box-shadow: 1px 1px 7px 2px rgba(0,0,0,0.65);
 	cursor: pointer;
 	margin-left: 20px;
+	margin-bottom: 10px;
+	margin-top: 10px;
 }
 
 .FiS .Poruka, .Prijatelji .myInfo .Poruka {
-	max-width: 300px;
-	margin: 15px;
+	width: 300px;
+	min-height: 130px;
+	margin: 10px;
+	margin-right: 0;
 	background-color: #76c2ff;
 }
 

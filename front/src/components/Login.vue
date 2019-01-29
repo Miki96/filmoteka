@@ -56,8 +56,7 @@ export default {
 				this.$router.push('/');
 			})
 			.catch(e => {
-				console.log(e.response.data);
-				// this.$root.$emit('showMsg', e.response.data);
+				console.log(e);
 			});
     },
     switchTab () {

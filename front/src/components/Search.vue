@@ -6,7 +6,7 @@
     </div>
     <div class="Sadrzaj">
       <div class="deo">
-        <form>
+        <form v-on:submit.prevent="pretraga">
           <div class="sBack">
             <h2>Pretraga</h2>
             <div class="Izbor">
@@ -189,7 +189,21 @@ export default {
       epizode: 0,
       search: '',
     }
-  },  
+  },
+  watch: {
+    $route (to, from){
+        // reset stranice
+        if (to.path == "/search") {
+          this.movies = [];
+          this.series = [];
+          this.zanr = 0;
+          this.ocena = 0;
+          this.godina = 1900;
+          this.epizode = 0;
+          this.search = '';
+        }
+    }
+  },
   methods: {
     pretraga() {
       console.log('pretraga');

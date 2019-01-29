@@ -45,7 +45,8 @@ client.connect(function (err) {
             opis: 'Boemska rapsodija je biografski film koji slavi grupu Queen, njihovu muziku i izvanrednog frontmena Fredija Merkjurija, koji je prkošenjem i razbijanjem stereotipa postao jedan od najobožavanijih zabavljača na planeti.',
             glumci: ['Rami Malek', 'Gwilym Lee', 'Ben Hardy'],
             reditelj: 'Bryan Singer',
-            zanr: ['Drama']
+            zanr: ['Drama'],
+            slika: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/gbmkFWdtihe1VfydTDsieQ6VfGL.jpg'
         },
         {
             naziv: 'Blade Runner 2049',
@@ -55,7 +56,8 @@ client.connect(function (err) {
             opis: 'Trideset godina nakon događaja iz prvog dela, novi blejd raner, policajac K (Rajan Gosling) otkriva davno skrivenu tajnu koja bi mogla da ono što je ostalo od društva pretvori u haos.',
             glumci: ['Ryan Gosling', 'Harrison Ford', 'Ana de Armas'],
             reditelj: 'Denis Villeneuve',
-            zanr: ['Avantura', 'Akcija']
+            zanr: ['Avantura', 'Akcija'],
+            slika: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg'
         },
         {
             naziv: 'Big Hero 6',
@@ -65,7 +67,8 @@ client.connect(function (err) {
             opis: 'Kad užasan događaj pogodi grad San Fransokio i smesti Hira usred opasnosti, on će potražiti pomoć od Bejmaksa i njegovih bliskih prijatelja.',
             glumci: ['Scott Adsit', 'Ryan Potter', 'Daniel Henney'],
             reditelj: 'Don Hall',
-            zanr: ['Avantura', 'Komedija']
+            zanr: ['Avantura', 'Komedija'],
+            slika: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/9gLu47Zw5ertuFTZaxXOvNfy78T.jpg'
         },
     ]);
 
@@ -81,7 +84,8 @@ client.connect(function (err) {
             opis: 'Serija je satirična parodija načina života američkog srednjeg staleža, predstavljenog kroz život porodice iz naslova.',
             glumci: ['Dan Castallaneta', 'Julie Kavner', 'Nancy Cartwright'],
             reditelj: 'Matt Groening',
-            zanr: ['Komedija']
+            zanr: ['Komedija'],
+            slika: 'https://image.tmdb.org/t/p/w300_and_h450_bestv2/yTZQkSsxUFJZJe67IenRM0AEklc.jpg'
         },
     ]);
 
