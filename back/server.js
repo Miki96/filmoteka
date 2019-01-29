@@ -313,6 +313,17 @@ app.post('/movieList', function (req, res) {
 
 });
 
+//ceo niz filmova korisnika
+app.post('/getRating', function (req, res) {
+	
+	db.collection('users').find(
+		{ _id : userID }
+	).toArray(function (err, result) {
+		res.status(200).send(result[0].filmovi);
+	});
+
+});
+
 
 // update user series 
 app.put('/addSeries/:id', function (req, res) {
