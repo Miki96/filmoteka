@@ -66,7 +66,7 @@ app.post('/user', function (req, res) {
 		token: token
 	}, function (err, result) {
 		if (err) {
-			res.status(400).send(err);
+			res.status(400).send("Email already exists");
 			return;
 		}
 		// saved

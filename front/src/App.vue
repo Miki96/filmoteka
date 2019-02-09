@@ -1,8 +1,31 @@
 <template>
   <div id="app">
+	<div v-if="show" class="poruka">{{msg}}</div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+	data: function () {
+		return {
+			msg: "poruka",
+			show: false
+		}
+	},
+	mounted() {
+    // listen for changes
+    this.$root.$on("showMsg", msg => {
+		this.msg = msg;
+		this.show = true;
+		setTimeout(() => {
+			this.show = false;
+		}, 5000);
+    });
+  }
+}
+</script>
+
 
 <style>
 
@@ -23,6 +46,28 @@ body {
     font-family: Kano;
 	src: url('assets/fonts/Kano.otf');
 }
+
+/* poruka */
+
+.poruka {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	width: 100%;
+	max-width: 300px;
+	margin: 20px auto;
+	background-color: #eee;
+	z-index: 30;
+	padding: 15px;
+	border-radius: 7px;
+	box-shadow: 1px 1px 7px 1px rgba(0,0,0,0.55);
+	color: #111;
+	max-height: 200px;
+	overflow: hidden;
+	text-align: center;
+}
+
 
 /* SCROLL */
 
