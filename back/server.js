@@ -159,7 +159,7 @@ app.use((req, res, next) => {
 	});
 });
 
-// Provera Tokena
+// Provera tokena
 app.post('/validate', (req, res) => {
     res.status(200).send({id : userID});
 });
@@ -212,7 +212,9 @@ app.delete('/user', function (req, res) {
 });
 
 
-// update user movies
+
+//// update user movies
+
 app.put('/addMovie/:id', function (req, res) {
 	let ids = userID;
 	let idFilma = req.params.id;
@@ -232,7 +234,6 @@ app.put('/addMovie/:id', function (req, res) {
 	});
 });
 
-//delete movie from user's list
 app.put('/deleteMovie/:id', function (req, res) {
 	let ids = userID;
 	let idFilma = req.params.id;
@@ -314,7 +315,7 @@ app.post('/movieList', function (req, res) {
 });
 
 //ceo niz filmova korisnika
-app.post('/getRating', function (req, res) {
+app.post('/getRatingF', function (req, res) {
 	
 	db.collection('users').find(
 		{ _id : userID }
@@ -325,7 +326,9 @@ app.post('/getRating', function (req, res) {
 });
 
 
-// update user series 
+
+//// update user series 
+
 app.put('/addSeries/:id', function (req, res) {
 	let ids = userID;
 	let idSerije = req.params.id;
@@ -346,9 +349,29 @@ app.put('/addSeries/:id', function (req, res) {
 	});
 });
 
+app.put('/deleteSeries/:id', function (req, res) {
+	let ids = userID;
+	let idSerije = req.params.id;
+
+	let id = mongo.ObjectID(ids);
+	let idF = mongo.ObjectID(idSerije);
+
+	let query = {$pull: {serije: {idSerije: idF} }};
+	console.log(query);
+	db.collection('users').updateOne({
+		_id: id},
+		query,
+		function (err, result) {
+		if (err) {
+			res.status(400).send(err);
+		}
+		res.status(200).send(result);
+	});
+});
+
 app.put('/addCommS/:id', function (req, res) {
-	let ids = req.params.id;
-	let idSerije = req.body.idSerije;
+	let ids = userID;
+	let idSerije = req.params.id;
 	let kom = req.body.kom;
 
 	// console.log(kom);
@@ -369,8 +392,8 @@ app.put('/addCommS/:id', function (req, res) {
 });
 
 app.put('/addRatingS/:id', function (req, res) {
-	let ids = req.params.id;
-	let idSerije = req.body.idSerije;
+	let ids = userID;
+	let idSerije = req.params.id;
 	let ocena = parseInt(req.body.ocena);
 
 	let id = require('mongodb').ObjectID(ids);
@@ -387,6 +410,35 @@ app.put('/addRatingS/:id', function (req, res) {
 		}
 		res.status(200).send('rating added');
 	});
+});
+
+//seije na osnovu niza id-jeva
+app.post('/seriesList', function (req, res) {
+	let niz = [];
+	let nizId = req.body.id;
+	
+	nizId.forEach(element => {
+		niz.push(mongo.ObjectID(element));
+	});
+
+	
+	db.collection('series').find(
+		{ _id : { $in : niz } }
+	).toArray(function (err, result) {
+		res.status(200).send(result);
+	});
+
+});
+
+//ceo niz serija korisnika
+app.post('/getRatingS', function (req, res) {
+	
+	db.collection('users').find(
+		{ _id : userID }
+	).toArray(function (err, result) {
+		res.status(200).send(result[0].serije);
+	});
+
 });
 
 
@@ -509,7 +561,7 @@ app.post('/series', function (req, res) {
 		naziv: req.body.naziv,
 		epizode: parseInt(req.body.broj),
 		godina: parseInt(req.body.godina),
-		sezona: parseInt(req.body.sezona),  //ne bih epizode izdvajala
+		sezona: parseInt(req.body.sezona), 
 		reziser: req.body.reziser,
 		zanr: req.body.zanr,
 		ocena: parseInt(req.body.ocena),
