@@ -303,14 +303,6 @@ h2 span {
 	max-width: 500px;
 }
 
-.Polica i {
-	/* position: absolute;
-	bottom: 2px;
-	font-size: 0.8em;
-	right: 0px;
-	left: 0px;
-	color: #ccc; */
-}
 
 .Polica span {
 	font-family: Roboto;
