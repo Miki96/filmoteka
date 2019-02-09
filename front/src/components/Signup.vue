@@ -63,11 +63,11 @@ export default {
 				// success, move to login and show message
 				console.log(response);
 				this.$router.push('login');
-				// this.$root.$emit('showMsg', 'Account created. Please login.');
+				 //this.$root.$emit('showMsg', 'Account created. Please login.');
 			})
 			.catch(e => {
 				console.log(e.response.data);
-				// this.$root.$emit('showMsg', e.response.data);
+				 //this.$root.$emit('showMsg', e.response.data);
 			});
     },
     switchTab () {
