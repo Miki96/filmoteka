@@ -27,7 +27,7 @@
               <tr>
                 <th>Naziv</th>
                 <th>Godina</th>
-                <th>Sezona</th>
+                <th>Sezone</th>
                 <th>IMDB</th>
               </tr>
             </thead>

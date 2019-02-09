@@ -182,7 +182,7 @@ export default {
       movies: [],
       series: [],
       type: 1,
-      zanrovi: ['Svi', 'Akcija', 'Avantura', 'Drama', 'Komedija', 'Triler', 'Tinejderski', 'Romantika', 'Misterija'],
+      zanrovi: ['Svi', 'Akcija', 'Avantura', 'Drama', 'Komedija', 'Triler', 'Tinejderski', 'Romantika', 'Misterija', 'Istorijski', 'Kriminalisticki'],
       zanr: 0,
       ocena: 0,
       godina: 1900,
