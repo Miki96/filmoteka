@@ -31,9 +31,6 @@
             </li>
           </ul>
           <h2>Uzivajte!</h2>
-          <p>
-            <b>Napomena:</b> Baza trenutno ima svega nekoliko desetina filmova i serija jer kreator od svih drugih ispitnih obaveza nije imao vremena da ubaci vise.
-          </p>
         </div>
       </div>
       <div class="deo">

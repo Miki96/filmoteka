@@ -18,7 +18,7 @@ client.connect(function (err) {
     db.collection('movies').deleteMany({});
 
     // USERS
-    db.collection("users").createIndex( { "email" : 1 }, { unique : true } );//nova linija
+    db.collection("users").createIndex( { "email" : 1 }, { unique : true } );
     //db.ensureIndex("email",callback)
     db.collection('users').insertMany([
         {

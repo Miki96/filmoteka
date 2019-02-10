@@ -45,7 +45,6 @@
               <i class="fa fa-instagram" aria-hidden="true"></i>
               <i class="fa fa-github" aria-hidden="true"></i>
             </div>
-            <p>Copyright 2017 Miodrag Mikić. Sva prava zadržana.</p>
           </div>
         </div>
       </div>
