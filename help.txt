@@ -1,2 +1,0 @@
-// cuva Git username i password 
-git config --global credential.helper wincred
